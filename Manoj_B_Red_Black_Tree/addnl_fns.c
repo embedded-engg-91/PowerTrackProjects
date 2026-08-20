@@ -2,7 +2,7 @@
 
 tree_t *create_node(int data)
 {
-    /*adding only data for every new node the color will be considered as red only*/
+    
     tree_t *new_node = malloc(sizeof(tree_t));
     new_node->color = 'R';
     new_node->data = data;
@@ -19,16 +19,16 @@ void print_tree(tree_t *root)
     {
         return;
     }
-    /*followed preorder printing logic*/
-    /* print parent, go left, go right*/
+    
+    
     printf("%d [%c]", root->data, root->color);
     printf("\n");
     print_tree(root->left);
     print_tree(root->right);
 }
 
-void rotate_left(tree_t **root, tree_t **x) // the node passed is grandparent of inserted node
-{                                           // but we are collecting that as x
+void rotate_left(tree_t **root, tree_t **x) 
+{                                           
 
     tree_t *y = (*x)->right;
     tree_t *t2 = y->left;
@@ -46,7 +46,7 @@ void rotate_left(tree_t **root, tree_t **x) // the node passed is grandparent of
     {
         (*root) = y;
     }
-    else if ((*x) == old_parent->left) /*need to determine whether x was the left or right child of its old parent.*/
+    else if ((*x) == old_parent->left) 
     {
         old_parent->left = y;
     }
@@ -56,8 +56,8 @@ void rotate_left(tree_t **root, tree_t **x) // the node passed is grandparent of
     }
 }
 
-void rotate_right(tree_t **root, tree_t **x) // the node passed is grandparent of inserted node
-{                                            // but we are collecting that as x
+void rotate_right(tree_t **root, tree_t **x) 
+{                                            
 
     tree_t *y = (*x)->left;
     tree_t *t2 = y->right;
@@ -75,7 +75,7 @@ void rotate_right(tree_t **root, tree_t **x) // the node passed is grandparent o
     {
         (*root) = y;
     }
-    else if ((*x) == old_parent->left) /*need to determine whether x was the left or right child of its old parent.*/
+    else if ((*x) == old_parent->left) 
     {
         old_parent->left = y;
     }
@@ -94,18 +94,12 @@ void swap_colors(tree_t **a, tree_t **b)
 
 Status validate_rbt(tree_t *root)
 {
-    /*
-    Every node is either red or black.
-    The root is black.
-    Every NULL leaf is considered black.
-    A red node cannot have a red child.
-    Every path from a node to its descendant NULL leaves has the same black height.
-    */
+    
 
     if (root == NULL)
         return SUCCESS;
 
-    /* R1: Only the actual root must be black */
+    
     if (root->parent == NULL && root->color != 'B')
     {
         printf("Violation: Root is not BLACK\n");
@@ -113,7 +107,7 @@ Status validate_rbt(tree_t *root)
     }
 
 
-    /* R2: No RED node can have a RED child */
+    
     if (root->color == 'R')
     {
         if (root->left != NULL && root->left->color == 'R')
@@ -129,15 +123,15 @@ Status validate_rbt(tree_t *root)
         }
     }
 
-    /* check the number og black nodes*/
-    /* Check entire tree */
+    
+    
     if (validate_rbt(root->left) == FAILURE)
         return FAILURE;
 
     if (validate_rbt(root->right) == FAILURE)
         return FAILURE;
 
-    /* Black height */
+    
     if (black_height(root) == -1)
         return FAILURE;
 
@@ -148,12 +142,12 @@ Status validate_rbt(tree_t *root)
 int black_height(tree_t *root)
 {
     if (root == NULL)
-        return 1; // leaf node is null is being considered as black
+        return 1; 
 
-    int left_height = black_height(root->left); // check for evey node on either side of the node
+    int left_height = black_height(root->left); 
     int right_height = black_height(root->right);
 
-    if (left_height == -1 || right_height == -1) //if subtree is alredy invalid need to pass upawards
+    if (left_height == -1 || right_height == -1) 
     return -1;
     
     if (left_height != right_height)
@@ -165,7 +159,7 @@ int black_height(tree_t *root)
     {
         return left_height + 1;
     }
-    //else
+    
     return left_height;
     
 }
