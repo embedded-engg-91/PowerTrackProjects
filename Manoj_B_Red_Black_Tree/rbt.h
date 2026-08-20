@@ -1,6 +1,4 @@
-/***************************************************************************************************************************************************************
-*Title		: This the header file for the Red Black Tree
-****************************************************************************************************************************************************************/
+
 #ifndef RBT_H
 #define RBT_H
 
@@ -24,7 +22,7 @@ typedef struct node
 }tree_t;
 
 
-/* keep all the prototypes of the functions here */
+
 int insert(tree_t **root, data_t data);
 tree_t * create_node(int data);
 void print_tree(tree_t *root);
