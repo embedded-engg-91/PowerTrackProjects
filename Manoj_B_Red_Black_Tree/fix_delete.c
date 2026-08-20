@@ -1,16 +1,16 @@
 #include "rbt.h"
 
-Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_left) /*pass by value is enought to change the nodes content */
+Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_left) 
 {
     if (replacement != NULL && replacement->color == 'R')
     {
-        replacement->color = 'B'; /*make it black */
+        replacement->color = 'B'; 
         return SUCCESS;
     }
     while (parent != NULL)
     {
 
-        /*find sibling using parent, cnat use replacement cuz its already null na  */
+        
         tree_t *sibling;
 
         if (was_left)
@@ -39,15 +39,15 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
 
         if (sibling->color == 'R')
         {
-            /* Case: RED sibling */
+            
             sibling->color = 'B';
             parent->color = 'R';
-            /*then we ned to foate the parent toward the double b;ack side */
-            /*so first we need to find it*/
+            
+            
             if (was_left)
             {
-                rotate_left(root, &parent); /*cuz here we want to rotate the parent */
-                /*refind the new sibling*/
+                rotate_left(root, &parent); 
+                
                 sibling = parent->right;
             }
             else
@@ -59,23 +59,23 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
 
         char left_clr;
         char right_clr;
-        if (sibling->left == NULL || sibling->left == NULL) // children color
-            left_clr = 'B';        /*remember no nodes means the color will be considered as black only */
+        if (sibling->left == NULL || sibling->left == NULL) 
+            left_clr = 'B';        
         else
             left_clr = sibling->left->color;
 
         if (sibling->right == NULL || sibling->right == NULL)
             right_clr = 'B';
         else
-            right_clr = sibling->right->color; // children color
+            right_clr = sibling->right->color; 
 
-        /* Case: BLACK sibling */
+        
 
-        /*cases */
-        // case 1:any one red child exists
-        // case 2: both children are black
+        
+        
+        
 
-        if (left_clr == 'B' && right_clr == 'B') // sibling children colors
+        if (left_clr == 'B' && right_clr == 'B') 
         {
             sibling->color = 'R';
 
@@ -86,12 +86,12 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
             }
             else
             {
-                /* parent is BLACK */
-                /* Double Black moves upward */
+                
+                
                 replacement = parent;
                 parent = replacement->parent;
 
-                /* continue fixing */
+                
                 if (parent == NULL)
                 {
                     replacement->color = 'B';
@@ -106,12 +106,12 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
                 continue;
             }
         }
-        /*means at least on one side there is a red child */
+        
 
-        // need to do rotatoins and recolor
+        
         if (was_left)
         {
-            if (right_clr == 'R') /*right roght roattion case */
+            if (right_clr == 'R') 
             {
                 sibling->color = parent->color;
                 parent->color = 'B';
@@ -124,15 +124,15 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
             }
             else
             {
-                /* RIGHT-LEFT case */
+                
                 sibling->left->color = 'B';
 
                 rotate_right(root, &sibling);
 
-                /* new sibling */
+                
                 sibling = parent->right;
 
-                /* now it is RR */
+                
 
                 sibling->color = parent->color;
                 parent->color = 'B';
@@ -146,7 +146,7 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
         }
         else
         {
-            if (left_clr == 'R') /*LEFT-LEFT ROATATION CASE */
+            if (left_clr == 'R') 
             {
                 sibling->color = parent->color;
                 parent->color = 'B';
@@ -159,15 +159,15 @@ Status fix_delete(tree_t **root, tree_t *replacement, tree_t *parent, int was_le
             }
             else
             {
-                /* LEFT-RIGHT case */
+                
                 sibling->right->color = 'B';
 
                 rotate_left(root, &sibling);
 
-                /* new sibling */
+                
                 sibling = parent->left;
 
-                /* now it is RR */
+                
 
                 sibling->color = parent->color;
                 parent->color = 'B';
