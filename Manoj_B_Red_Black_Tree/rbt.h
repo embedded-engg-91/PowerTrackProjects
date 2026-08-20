@@ -2,7 +2,6 @@
 #ifndef RBT_H
 #define RBT_H
 
-
 #include<stdio.h>
 #include<stdlib.h>
 typedef int data_t;
