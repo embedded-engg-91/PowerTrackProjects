@@ -1,12 +1,9 @@
-/**************************************************************************************************************************************************************
- *Title		: main function(Driver function)
- *Description	: This function is used as the driver function for the all the functions
- ***************************************************************************************************************************************************************/
+
 #include "rbt.h"
 
 int main()
 {
-	/* Declare the pointers */
+	
 	tree_t *root = NULL;
 	data_t data;
 	data_t minimum;
@@ -14,19 +11,19 @@ int main()
 	int operation;
 	do
 	{
-		/* Display the menu */
+		
 		printf("1. Insert\n2. Display\n3. Find Minimum\n4. Find Maximum\n5. Delete Minimum\n6. Delete Maximum\n7. Delete Element\n8. Exit\n");
-		/* Read the option for performing the operation */
+		
 		if (scanf("%d", &operation) != 1)
 		{
 			printf("Please enter a valid operations as the input!\n");
 			continue;
 		}
 
-		/* Jump to the option entered by the user */
+		
 		switch (operation)
 		{
-		case 1: /* insert an element */
+		case 1: 
 			printf("Enter the data to be inserted into the RB Tree: \n");
 			scanf("%d", &data);
 			insert(&root, data);
@@ -34,21 +31,21 @@ int main()
 			printf("Data Insertion Successful!!!\n");
 			break;
 		
-			case 2: /*display operation*/
+			case 2: 
 			print_tree(root);
 			break;
 		case 3:
 
-			printf("Minimum data in the tree: %d\n", findmin(root)); /*dont need to input data this is minimum in tree na */
+			printf("Minimum data in the tree: %d\n", findmin(root)); 
 			print_tree(root);
 
 			break;
 		case 4:
-			printf("Maximum data in the tree: %d\n", findmax(root)); /*dont need to input data this is minimum in tree na */
+			printf("Maximum data in the tree: %d\n", findmax(root)); 
 			print_tree(root);
 			break;
 		
-			case 5: /*5. Delete Minimum*/
+			case 5: 
 		{
 			data = findmin(root);
 
@@ -64,7 +61,7 @@ int main()
 			break;
 		}
 
-		case 6: /*5. Delete maximum*/
+		case 6: 
 		{
 			data = findmax(root);
 
@@ -79,7 +76,7 @@ int main()
 			}
 			break;
 		}
-		case 7: /* delete element*/
+		case 7: 
 
 		{
 			printf("Enter the data you want to delete: \n");
