@@ -2,18 +2,18 @@
 
 void get_gp_uncle(tree_t *node, tree_t **uncle, tree_t **grandparent)
 {
-    /*if a tree deisnt have any granparent then there can be no uncel at all*/
+    
     
     if(node->parent==NULL || node->parent->parent == NULL)
     {
-        /*then grandparent cannot exist hence uncle cannot exist */
+        
         *grandparent=NULL;
         *uncle=NULL;
         return;
     }
     else
     {
-        /*now grandparent exist so we need to find the ubcle*/
+        
         *grandparent=node->parent->parent;
         if((*grandparent)->right == node->parent)
         {
