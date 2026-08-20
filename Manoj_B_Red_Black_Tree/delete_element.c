@@ -1,6 +1,6 @@
 #include "rbt.h"
 
-/*iterative  v*/
+
 Status delete_element(tree_t **root, int data)
 {
 	if (root == NULL || *root == NULL)
@@ -8,10 +8,10 @@ Status delete_element(tree_t **root, int data)
         return NOELEMENT;
     }
 
-    // 1. Use a temp variable for traversal
+    
     tree_t *current = *root;
 
-    // 2. Iteratively search for the data
+    
     while (current != NULL)
     {
         if (data < current->data)
@@ -24,11 +24,11 @@ Status delete_element(tree_t **root, int data)
         }
         else
         {
-            break; // Data found
+            break; 
         }
     }
 
-    // If current is NULL, the data wasn't in the tree
+    
     if (current == NULL)
     {
         return NOELEMENT;
@@ -38,13 +38,13 @@ Status delete_element(tree_t **root, int data)
 	tree_t  *node_to_del, *replacement, *inorder_succ;
 	
 
-		// if it has come till here meand data has been found
-		// remeber if its not greate if its not less than than its equal
-		/* cases 1. leaf node 2. node with one child 3. node with 2 child*/
+		
+		
+		
 		char del_clr;
 		tree_t *parent;
 		int was_left = 0;
-		if (target->left != NULL && target->right != NULL) // case 1 leaf node
+		if (target->left != NULL && target->right != NULL) 
 		{
 			inorder_succ = findmin_node(target->right);
 			target->data = inorder_succ->data;
@@ -54,26 +54,26 @@ Status delete_element(tree_t **root, int data)
 		{
 			node_to_del = target;
 		}
-		if (node_to_del->left != NULL && node_to_del->right == NULL) // single child node
+		if (node_to_del->left != NULL && node_to_del->right == NULL) 
 		{
-			// tree_t *bkp=(*root)->left;
-			// free((*root));
-			// return bkp;
+			
+			
+			
 			replacement = node_to_del->left;
 		}
-		else if (node_to_del->right != NULL && node_to_del->left == NULL) // single child nodde
+		else if (node_to_del->right != NULL && node_to_del->left == NULL) 
 		{
-			// tree_t *bkp=(*root)->right;
-			// free((*root));
-			// return bkp;
+			
+			
+			
 			replacement = node_to_del->right;
 		}
-		else /* target has 0/no child*/
+		else 
 		{
 			replacement = NULL;
 		}
-		del_clr = node_to_del->color; /* save deleted color*/
-		parent = node_to_del->parent; /* save the parent */
+		del_clr = node_to_del->color; 
+		parent = node_to_del->parent; 
 
 		if (parent == NULL)
 		{
@@ -83,7 +83,7 @@ Status delete_element(tree_t **root, int data)
 		}
 		else
 		{
-			/*connect parent to replacement */
+			
 			if (parent->left == node_to_del)
 			{
 				was_left = 1;
@@ -93,14 +93,14 @@ Status delete_element(tree_t **root, int data)
 			{
 				parent->right = replacement;
 			}
-			/* connect replacement to parent */
+			
 			if (replacement != NULL)
 				replacement->parent = parent;
 		}
-		free(node_to_del); /* free the node to del*/
+		free(node_to_del); 
 
-		if (del_clr == 'B') /* deleted color is black only we need to fix it*/
-		{					/* cus delenting a black node will afftect the the no og black nodes in each path */
+		if (del_clr == 'B') 
+		{					
 			fix_delete(root, replacement, parent, was_left);
 		}
 	
