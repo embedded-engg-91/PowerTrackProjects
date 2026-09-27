@@ -8,7 +8,7 @@ Status valid_filename(char *filename)
         printf("Please enter a valid file name with proper file format.!!!\n");
         return INVALID;
     }
-    if (strcmp(pos, ".txt") == 0) /*cuz it return three values na */
+    if (strcmp(pos, ".txt") == 0) 
     {
         return VALID;
     }
@@ -19,7 +19,7 @@ Status valid_filename(char *filename)
 
 Status file_open(text_editor *ted, DLL **head, DLL **tail, char *filename)
 {
-    /*opening the file from the current cursor position and appending inside the document*/
+    
     FILE *fptr = fopen(filename, "r");
 
     if (fptr == NULL)
@@ -33,7 +33,7 @@ Status file_open(text_editor *ted, DLL **head, DLL **tail, char *filename)
 
     while (fgets(buffer, sizeof(buffer), fptr) != NULL)
     {
-        /* Remove newline */
+        
         buffer[strcspn(buffer, "\n")] = '\0';
 
         if (dl_insert_last(head, tail, buffer) != SUCCESS)
@@ -50,7 +50,7 @@ Status file_open(text_editor *ted, DLL **head, DLL **tail, char *filename)
     ted->doc.firstline = *head;
     ted->doc.lastline = *tail;
 
-    /* Cursor at beginning of document */
+    
     ted->curs.line_no = 1;
     ted->curs.pos = 0;
     modified = 1;
@@ -60,7 +60,7 @@ Status file_open(text_editor *ted, DLL **head, DLL **tail, char *filename)
 Status file_save(text_editor *ted, DLL **head, DLL **tail, char *filename)
 {
     FILE *fptr = fopen(filename, "w");
-    /*we need to copy all the dll data*/
+    
     if ((*head) == NULL)
     {
         printf("The file is empty!!!\nPlease first enter some content into the editor\n");
@@ -79,7 +79,7 @@ Status file_save(text_editor *ted, DLL **head, DLL **tail, char *filename)
 
 Status file_close(text_editor *ted, DLL **head, DLL **tail)
 {
-    /*rmeove all the contents from the memory now and set it to blank*/
+    
     if (*head == NULL)
     {
         printf("The editor is already empty!!!\nPlease insert some content first!!!\n");
@@ -89,7 +89,7 @@ Status file_close(text_editor *ted, DLL **head, DLL **tail)
     while (temp != NULL)
     {
         DLL *next = temp->next;
-        free(temp->str); /*string is also dynamically alloted na */
+        free(temp->str); 
         free(temp);
         temp = next;
     }
@@ -98,7 +98,7 @@ Status file_close(text_editor *ted, DLL **head, DLL **tail)
     ted->doc.firstline = NULL;
     ted->doc.lastline = NULL;
     ted->doc.linecount = 0;
-    ted->curs.line_no = 1; /*mistkae 1 in my casw*/
+    ted->curs.line_no = 1; 
     ted->curs.pos = 0;
     return DELETED;
 }
