@@ -15,7 +15,7 @@ int main()
     while (1)
     {
         fgets(input, wordsize, stdin);
-        input[strcspn(input, "\n")] = '\0'; // Strip newline character
+        input[strcspn(input, "\n")] = '\0'; 
         if (validate(input) == VALID)
         {
             Status check = jump_to_fun(input, &ted, &head, &tail);
