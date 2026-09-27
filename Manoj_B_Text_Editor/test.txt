@@ -1,0 +1,3 @@
+the quick red fix
+jumps over the lazy dog
+This is a text editor project
