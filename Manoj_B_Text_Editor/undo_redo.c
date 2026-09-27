@@ -1,7 +1,7 @@
 #include "text_editor.h"
 
-/*before calling the fucntions save the state */
-// save_undo_state(ted, head, tail); >> deep-copies the current documne tand cursor
+
+
 
 Status save_undo_state(text_editor *ted)
 {
@@ -103,20 +103,20 @@ Status save_redo_state(text_editor *ted)
     }
     new_history->curs = ted->curs;
 
-    new_history->next = ted->redo_stack; /* only diif from undo stk, here we pushing him onto redo stk*/
-    ted->redo_stack = new_history;/*stack comes to top*/
+    new_history->next = ted->redo_stack; 
+    ted->redo_stack = new_history;
 
     return SUCCESS;
 }
 
 void clear_redo_stack(text_editor *ted)
 {
-    History *temp = ted->redo_stack; /*pointing at the top snapshot of the doc */
+    History *temp = ted->redo_stack; 
     while (temp != NULL)
     {
         History *next_history = temp->next;
 
-        /* Free the document snapshot stored in this history node */
+        
         DLL *doc_temp = temp->head;
         while (doc_temp != NULL)
         {
@@ -125,12 +125,12 @@ void clear_redo_stack(text_editor *ted)
             free(doc_temp);
             doc_temp = next_doc;
         }
-        /* Free the history node */
+        
         free(temp);
-        temp = next_history; /*point to next snapshot of doc in stack*/
+        temp = next_history; 
     }
 
-    /* Stack is now empty */
+    
     ted->redo_stack = NULL;
 }
 
@@ -142,20 +142,20 @@ Status editor_undo(text_editor *ted)
         return LIST_EMPTY;
     }
     
-    save_redo_state(ted);/* Save current state into redo stack */
+    save_redo_state(ted);
     
-    free_document(&ted->doc.firstline,&ted->doc.lastline);/* Free current document */
+    free_document(&ted->doc.firstline,&ted->doc.lastline);
 
-    History *temp = ted->undo_stack;    /* Get top undo history */
+    History *temp = ted->undo_stack;    
 
-    /* Restore that document */
+    
     ted->doc.firstline = temp->head;
     ted->doc.lastline = temp->tail;
 
     ted->doc.linecount = temp->linecount;
-    ted->curs = temp->curs;    /* Restore cursor */
-    ted->undo_stack = temp->next;    /* Pop undo stack */
-    free(temp);/*dont free temp ofhead/tail cuz they now belong in current document*/
+    ted->curs = temp->curs;    
+    ted->undo_stack = temp->next;    
+    free(temp);
     return SUCCESS;
 }
 
@@ -167,14 +167,14 @@ Status editor_redo(text_editor *ted)
         return LIST_EMPTY;
     }
     
-    save_undo_state(ted);   /* Save current state into UNDO stack */
+    save_undo_state(ted);   
     
     free_document(&ted->doc.firstline,
                   &ted->doc.lastline);
 
     History *temp = ted->redo_stack;
 
-    /* Restore redo snapshot */
+    
     ted->doc.firstline = temp->head;
     ted->doc.lastline = temp->tail;
     ted->doc.linecount = temp->linecount;
@@ -182,10 +182,10 @@ Status editor_redo(text_editor *ted)
     ted->curs = temp->curs;
 
     
-    ted->redo_stack = temp->next;/* Pop redo stack */
+    ted->redo_stack = temp->next;
 
     
-    free(temp);/* Don't free head/tail: they now belong to current document */
+    free(temp);
 
     return SUCCESS;
 }
