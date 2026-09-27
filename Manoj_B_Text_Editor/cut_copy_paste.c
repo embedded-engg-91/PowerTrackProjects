@@ -10,7 +10,7 @@ Status copy_text(text_editor *ted, DLL **head, DLL **tail, int count)
         printf("No line exists!!!\nPlease insert a line.!!!\n");
         return FAILURE;
     }
-    int available = strlen(temp->str) - ted->curs.pos; /*these many chars are availbe to copyt*/
+    int available = strlen(temp->str) - ted->curs.pos; 
 
     if (available == 0)
     {
@@ -18,20 +18,20 @@ Status copy_text(text_editor *ted, DLL **head, DLL **tail, int count)
         return FAILURE;
     }
 
-    if (count > available) /*if the count exceeds the availe chars*/
-        count = available; /* only copy how may are availbe */
+    if (count > available) 
+        count = available; 
 
-    free(ted->clipboard.data); /*our clipboard can store only once like there is no history implemented here*/
+    free(ted->clipboard.data); 
 
-    ted->clipboard.data = malloc(count + 1); /*1 for space*/
+    ted->clipboard.data = malloc(count + 1); 
 
-    memcpy(ted->clipboard.data, temp->str + ted->curs.pos, count); /* copy blocks of memory, dest,src,blocks of memory */
+    memcpy(ted->clipboard.data, temp->str + ted->curs.pos, count); 
 
     ted->clipboard.data[count] = '\0';
 #ifdef DEBUG
     printf("The data inside clipboard is : %s\n", ted->clipboard.data);
 #endif
-    ted->clipboard.clipboard_size = count; /* dont forget to update the clipboard sixe also*/
+    ted->clipboard.clipboard_size = count; 
 
     modified = 1;
     return COPIED;
@@ -41,7 +41,7 @@ Status cut_text(text_editor *ted, DLL **head, DLL **tail, int count)
 {
     save_undo_state(ted);
 clear_redo_stack(ted);
-    Status status = copy_text(ted, head, tail, count); /* first copy the data */
+    Status status = copy_text(ted, head, tail, count); 
 
     if (status == FAILURE)
         return FAILURE;
@@ -53,7 +53,7 @@ clear_redo_stack(ted);
     }
     char buffer[wordsize];
     strcpy(buffer, (temp->str) + count);
-    temp->str = realloc(temp->str, strlen(temp->str) - count + 1); /*1 for null char */
+    temp->str = realloc(temp->str, strlen(temp->str) - count + 1); 
     strcpy(temp->str, buffer);
 
     modified = 1;
@@ -76,7 +76,7 @@ clear_redo_stack(ted);
         printf("Please copy some text first!!!\n");
         return FAILURE;
     }
-    int count = ted->clipboard.clipboard_size; /*this much chars will be pasted intot eh document*/
+    int count = ted->clipboard.clipboard_size; 
 
     char *new_str = realloc(temp->str, strlen(temp->str) + count + 1);
 
@@ -87,14 +87,14 @@ clear_redo_stack(ted);
     }
 
     temp->str = new_str;
-    memmove(temp->str + ted->curs.pos + count, /*first move the data*/
+    memmove(temp->str + ted->curs.pos + count, 
             temp->str + ted->curs.pos,
             strlen(temp->str) - ted->curs.pos + 1);
-    memcpy(temp->str + ted->curs.pos, /*then copy the data*/
+    memcpy(temp->str + ted->curs.pos, 
            ted->clipboard.data,
            count);
 
-    ted->curs.pos += count; /*dont forget to shidt the cursor position */
+    ted->curs.pos += count; 
 
     modified = 1;
     return PASTE;
