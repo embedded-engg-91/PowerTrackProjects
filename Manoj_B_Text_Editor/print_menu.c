@@ -1,6 +1,6 @@
 #include "text_editor.h"
 
-/* Prints the available text editor commands */
+
 void printMenu(void)
 {
     printf("\n");
