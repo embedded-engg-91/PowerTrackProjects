@@ -19,7 +19,7 @@ typedef struct node
 {
     struct node *prev;
     struct node *next;
-    char *str; /*the entire line data will be converted ans stored in a single string */
+    char *str; 
 } DLL;
 
 typedef struct
@@ -102,7 +102,7 @@ void print_list(DLL *head);
 Status delete_chars(text_editor *ted, int count, DLL **head, DLL **tail);
 Status dl_delete_node(text_editor *ted, DLL **head, DLL **tail, DLL *node_to_delete);
 Status create_new_line(text_editor *ted, DLL **head, DLL **tail);
-Status dl_insert_after(DLL **head, DLL **tail, DLL *new_node, DLL *temp); /*gdata, ndata*/
+Status dl_insert_after(DLL **head, DLL **tail, DLL *new_node, DLL *temp); 
 Status move_up(text_editor *ted, DLL **head, DLL **tail);
 Status move_down(text_editor *ted, DLL **head, DLL **tail);
 Status move_left(text_editor *ted, DLL **head, DLL **tail);
