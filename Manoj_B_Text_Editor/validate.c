@@ -4,16 +4,16 @@ char *commands[] = {"insert", "delete_line", "delete", "newline", "up", "down", 
                     "end", "start", "finish", "copy", "cut", "paste", "open", "print",
                     "save", "close", "find", "replace", "undo", "redo", "exit", "help",NULL};
 
-Status validate(char *s) /*pass by reference*/
+Status validate(char *s) 
 {
     char buffer[wordsize];
     strcpy(buffer, s);
     char *tok1 = strtok(buffer, " \n");
-    // if (tok1 == NULL)
-    // {
-    //     return INVALID;
-    // }
-    char *tok2 = strtok(NULL, "\n"); /*second arg must always be delimiter */
+    
+    
+    
+    
+    char *tok2 = strtok(NULL, "\n"); 
     int flag = 0;
     for (int i = 0; commands[i] != NULL; i++)
     {
@@ -40,12 +40,12 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
 
     if (strcmp(tok1, "replace") == 0)
     {
-        tok2 = strtok(NULL, " \n"); /*old text part */
-        tok3 = strtok(NULL, "\n"); /* new text part */
+        tok2 = strtok(NULL, " \n"); 
+        tok3 = strtok(NULL, "\n"); 
     }
     else
     {
-        tok2 = strtok(NULL, "\n"); /*normal two part cmd */
+        tok2 = strtok(NULL, "\n"); 
     }
     if (strncmp(s, "insert", 6) == 0)
     {
@@ -55,7 +55,7 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
             printf("Please retype the command with the text you want to insert!!!\n");
             return FAILURE;
         }
-        if (insert(ted, tok2, head, tail) == SUCCESS) /*pass the data direclty */
+        if (insert(ted, tok2, head, tail) == SUCCESS) 
             return INSERTED;
     }
     else if (strncmp(s, "delete_line", 11) == 0)
@@ -157,10 +157,10 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
                 printf("Your file has been successfully loaded into the docoument\n");
             }
         }
-        // else this taken care in fucntion itself
-        // {
-        //     printf("Please provide a valid  filename with .txt extension");
-        // }
+        
+        
+        
+        
     }
     else if (strncmp(s, "save", 4) == 0)
     {
@@ -176,10 +176,10 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
                 printf("Your file has been Successfully Saved!!!\n");
             }
         }
-        // else //this taken care in function itself
-        // {
-        //     printf("Please provide a valid  filename with .txt extension");
-        // }
+        
+        
+        
+        
     }
     else if (strncmp(s, "close", 5) == 0)
     {
@@ -214,16 +214,16 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
             printf("Please retype the command with the text you want to replace with!!!\n");
             return FAILURE;
         }
-        Status status = editor_replace(ted, head, tail, tok2, tok3); // FIX REPLACER NEED HIS OWN PARSING LOGIC
+        Status status = editor_replace(ted, head, tail, tok2, tok3); 
         if (status == REPLACED)
         {
             printf("Replace operation has been performed successfully!!!\n");
         }
-        // else if( status == NOTFOUND) /*taken care in function itself
-        // {
-        //         printf("The required text is not present in the editor!!!\n");
+        
+        
+        
 
-        //     }
+        
     }
     else if (strncmp(s, "undo", 4) == 0)
     {
@@ -231,7 +231,7 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
 
         if (stat == SUCCESS)
         {
-            *head = ted->doc.firstline; /*mistake were causing seg faults*/
+            *head = ted->doc.firstline; 
             *tail = ted->doc.lastline;
 
             printf("Undo operation performed Successfully\n");
@@ -261,7 +261,7 @@ Status jump_to_fun(char *s, text_editor *ted, DLL **head, DLL **tail)
 
                 printf("Enter a valid option!!!\n");
             }
-            int temp; /* to clear the input buffer */
+            int temp; 
             while ((temp = getchar()) != '\n' && temp != EOF)
                 ;
             if (ch == 'Y' || ch == 'y')
